@@ -1,0 +1,525 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://example.org/pill#"
+     xml:base="http://example.org/pill"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#">
+
+  <owl:Ontology rdf:about="http://example.org/pill"/>
+
+  <!-- Classes -->
+  <owl:Class rdf:about="#AdministrationMethod"/>
+  <owl:Class rdf:about="#Condition"/>
+  <owl:Class rdf:about="#Dosage"/>
+  <owl:Class rdf:about="#HealthcareProvider"/>
+  <owl:Class rdf:about="#Instruction"/>
+  <owl:Class rdf:about="#Medication"/>
+  <owl:Class rdf:about="#Patient"/>
+  <owl:Class rdf:about="#SideEffect"/>
+
+  <!-- Subclasses -->
+  <owl:Class rdf:about="#Inhalation">
+    <rdfs:subClassOf rdf:resource="#AdministrationMethod"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Injection">
+    <rdfs:subClassOf rdf:resource="#AdministrationMethod"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Oral">
+    <rdfs:subClassOf rdf:resource="#AdministrationMethod"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Topical">
+    <rdfs:subClassOf rdf:resource="#AdministrationMethod"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AcuteCondition">
+    <rdfs:subClassOf rdf:resource="#Condition"/>
+  </owl:Class>
+  <owl:Class rdf:about="#AllergicCondition">
+    <rdfs:subClassOf rdf:resource="#Condition"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ChronicCondition">
+    <rdfs:subClassOf rdf:resource="#Condition"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#DosageAmount">
+    <rdfs:subClassOf rdf:resource="#Dosage"/>
+  </owl:Class>
+  <owl:Class rdf:about="#DosageDuration">
+    <rdfs:subClassOf rdf:resource="#Dosage"/>
+  </owl:Class>
+  <owl:Class rdf:about="#DosageFrequency">
+    <rdfs:subClassOf rdf:resource="#Dosage"/>
+  </owl:Class>
+  <owl:Class rdf:about="#AsNeededFrequency">
+    <rdfs:subClassOf rdf:resource="#DosageFrequency"/>
+  </owl:Class>
+  <owl:Class rdf:about="#DailyFrequency">
+    <rdfs:subClassOf rdf:resource="#DosageFrequency"/>
+  </owl:Class>
+  <owl:Class rdf:about="#WeeklyFrequency">
+    <rdfs:subClassOf rdf:resource="#DosageFrequency"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#Doctor">
+    <rdfs:subClassOf rdf:resource="#HealthcareProvider"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Nurse">
+    <rdfs:subClassOf rdf:resource="#HealthcareProvider"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Pharmacist">
+    <rdfs:subClassOf rdf:resource="#HealthcareProvider"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#FoodRequirement">
+    <rdfs:subClassOf rdf:resource="#Instruction"/>
+  </owl:Class>
+  <owl:Class rdf:about="#InteractionWarning">
+    <rdfs:subClassOf rdf:resource="#Instruction"/>
+  </owl:Class>
+  <owl:Class rdf:about="#TimeOfDay">
+    <rdfs:subClassOf rdf:resource="#Instruction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#HerbalSupplement">
+    <rdfs:subClassOf rdf:resource="#Medication"/>
+  </owl:Class>
+  <owl:Class rdf:about="#OverTheCounterMedication">
+    <rdfs:subClassOf rdf:resource="#Medication"/>
+  </owl:Class>
+  <owl:Class rdf:about="#PrescriptionMedication">
+    <rdfs:subClassOf rdf:resource="#Medication"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#AdultPatient">
+    <rdfs:subClassOf rdf:resource="#Patient"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ChildPatient">
+    <rdfs:subClassOf rdf:resource="#Patient"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ElderlyPatient">
+    <rdfs:subClassOf rdf:resource="#Patient"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="#CommonSideEffect">
+    <rdfs:subClassOf rdf:resource="#SideEffect"/>
+  </owl:Class>
+  <owl:Class rdf:about="#RareSideEffect">
+    <rdfs:subClassOf rdf:resource="#SideEffect"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SevereSideEffect">
+    <rdfs:subClassOf rdf:resource="#SideEffect"/>
+  </owl:Class>
+
+<!-- Disjoint Classes: AdultPatient, ChildPatient, ElderlyPatient -->
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#AdultPatient"/>
+    <rdf:Description rdf:about="#ChildPatient"/>
+    <rdf:Description rdf:about="#ElderlyPatient"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="#Inhalation"/>
+    <rdf:Description rdf:about="#Injection"/>
+    <rdf:Description rdf:about="#Oral"/>
+    <rdf:Description rdf:about="#Topical"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+
+<!-- Annotation on Class: Medication -->
+<owl:Class rdf:about="#Medication">
+  <rdfs:label xml:lang="en">Medication</rdfs:label>
+  <rdfs:comment xml:lang="en">A substance used for medical treatment.</rdfs:comment>
+</owl:Class>
+
+  <!-- Object Properties -->
+  <owl:ObjectProperty rdf:about="#hasAdministrationMethod">
+    <rdfs:domain rdf:resource="#Medication"/>
+    <rdfs:range rdf:resource="#AdministrationMethod"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#treatsCondition">
+    <rdfs:domain rdf:resource="#Medication"/>
+    <rdfs:range rdf:resource="#Condition"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasDosage">
+    <rdfs:domain rdf:resource="#Medication"/>
+    <rdfs:range rdf:resource="#Dosage"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#prescribedBy">
+    <rdfs:domain rdf:resource="#Medication"/>
+    <rdfs:range rdf:resource="#HealthcareProvider"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasSideEffect">
+    <rdfs:domain rdf:resource="#Medication"/>
+    <rdfs:range rdf:resource="#SideEffect"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#hasInstruction">
+    <rdfs:domain rdf:resource="#Medication"/>
+    <rdfs:range rdf:resource="#Instruction"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="#isPatient">
+    <rdfs:domain rdf:resource="#HealthcareProvider"/>
+    <rdfs:range rdf:resource="#Patient"/>
+  </owl:ObjectProperty>
+
+<!-- Annotation on Object Property: hasSideEffect -->
+<owl:ObjectProperty rdf:about="#hasSideEffect">
+  <rdfs:label xml:lang="en">has side effect</rdfs:label>
+  <rdfs:comment xml:lang="en">Links a medication to its possible side effects.</rdfs:comment>
+</owl:ObjectProperty>
+
+  <!-- Inverse Properties -->
+<owl:ObjectProperty rdf:about="#prescribes">
+  <rdfs:domain rdf:resource="#HealthcareProvider"/>
+  <rdfs:range rdf:resource="#Medication"/>
+  <owl:inverseOf rdf:resource="#prescribedBy"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#prescribedBy">
+  <rdfs:domain rdf:resource="#Medication"/>
+  <rdfs:range rdf:resource="#HealthcareProvider"/>
+</owl:ObjectProperty>
+
+<!-- Functional Property -->
+<owl:ObjectProperty rdf:about="#hasDosageAmount">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Medication"/>
+  <rdfs:range rdf:resource="#DosageAmount"/>
+</owl:ObjectProperty>
+
+<!-- Inverse Functional Property -->
+<owl:ObjectProperty rdf:about="#hasSerialNumber">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+  <rdfs:domain rdf:resource="#Medication"/>
+  <rdfs:range rdf:resource="#SerialNumber"/>
+</owl:ObjectProperty>
+
+<!-- Transitive Property: hasRelatedCondition -->
+<owl:TransitiveProperty rdf:about="#hasRelatedCondition">
+  <rdfs:domain rdf:resource="#Condition"/>
+  <rdfs:range rdf:resource="#Condition"/>
+</owl:TransitiveProperty>
+
+
+  <!-- Data Properties -->
+  <owl:DatatypeProperty rdf:about="#dosageAmountValue">
+    <rdfs:domain rdf:resource="#DosageAmount"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#dosageDurationValue">
+    <rdfs:domain rdf:resource="#DosageDuration"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#dosageFrequencyValue">
+    <rdfs:domain rdf:resource="#DosageFrequency"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#sideEffectDescription">
+    <rdfs:domain rdf:resource="#SideEffect"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="#instructionText">
+    <rdfs:domain rdf:resource="#Instruction"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </owl:DatatypeProperty>
+
+<!-- Restriction Example: Medication must have at least one AdministrationMethod -->
+<owl:Class rdf:about="#MedicationWithAdministrationRestriction">
+  <rdfs:subClassOf rdf:resource="#Medication"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#hasAdministrationMethod"/>
+      <owl:someValuesFrom rdf:resource="#AdministrationMethod"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<!-- Restriction Example: PrescriptionMedication only treats ChronicCondition -->
+<owl:Class rdf:about="#PrescriptionMedication">
+  <rdfs:subClassOf rdf:resource="#Medication"/>
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#treatsCondition"/>
+      <owl:allValuesFrom rdf:resource="#ChronicCondition"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+<!-- Value Partition Example: DosageFrequency as enumeration -->
+<owl:Class rdf:about="#DosageFrequency">
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:oneOf rdf:parseType="Collection">
+        <rdf:Description rdf:about="#AsNeededFrequency"/>
+        <rdf:Description rdf:about="#DailyFrequency"/>
+        <rdf:Description rdf:about="#WeeklyFrequency"/>
+      </owl:oneOf>
+    </owl:Class>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="#HerbalSupplement">
+  <owl:equivalentClass rdf:resource="#NaturalMedication"/>
+</owl:Class>
+
+<!-- Declare NaturalMedication class if not already declared -->
+<owl:Class rdf:about="#NaturalMedication"/>
+
+<owl:Class rdf:about="#FrequentDosage">
+  <owl:equivalentClass rdf:resource="#DailyFrequency"/>
+</owl:Class>
+
+
+<!-- Individuals -->
+
+
+<!-- Medication: Paracetamol -->
+<owl:NamedIndividual rdf:about="#Paracetamol">
+  <rdf:type rdf:resource="#PrescriptionMedication"/>
+  <hasAdministrationMethod rdf:resource="#Oral"/>
+  <treatsCondition rdf:resource="#AcuteCondition"/>
+  <hasDosage rdf:resource="#ParacetamolDosageAmount"/>
+  <hasDosage rdf:resource="#ParacetamolDosageDuration"/>
+  <hasDosage rdf:resource="#ParacetamolDosageFrequency"/>
+  <hasSideEffect rdf:resource="#CommonSideEffectFever"/>
+  <hasInstruction rdf:resource="#TakeWithFood"/>
+  <prescribedBy rdf:resource="#DoctorJohn"/>
+  <rdfs:label xml:lang="en">Paracetamol</rdfs:label>
+  <rdfs:comment xml:lang="en">Common pain reliever and fever reducer.</rdfs:comment>
+</owl:NamedIndividual>
+
+<!-- Dosage Individuals for Paracetamol -->
+<owl:NamedIndividual rdf:about="#ParacetamolDosageAmount">
+  <rdf:type rdf:resource="#DosageAmount"/>
+  <dosageAmountValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">500 mg</dosageAmountValue>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ParacetamolDosageDuration">
+  <rdf:type rdf:resource="#DosageDuration"/>
+  <dosageDurationValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">5 days</dosageDurationValue>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ParacetamolDosageFrequency">
+  <rdf:type rdf:resource="#DosageFrequency"/>
+  <dosageFrequencyValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Every 6 hours</dosageFrequencyValue>
+</owl:NamedIndividual>
+
+<!-- Side Effect Individual -->
+<owl:NamedIndividual rdf:about="#CommonSideEffectFever">
+  <rdf:type rdf:resource="#CommonSideEffect"/>
+  <sideEffectDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mild fever</sideEffectDescription>
+  <rdfs:label xml:lang="en">Mild Fever</rdfs:label>
+  <rdfs:comment xml:lang="en">A common side effect characterized by slight increase in body temperature.</rdfs:comment>
+</owl:NamedIndividual>
+
+<!-- Instruction Individual -->
+<owl:NamedIndividual rdf:about="#TakeWithFood">
+  <rdf:type rdf:resource="#FoodRequirement"/>
+  <instructionText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Take with food to avoid stomach upset</instructionText>
+</owl:NamedIndividual>
+
+<!-- Healthcare Provider Individual -->
+<owl:NamedIndividual rdf:about="#DoctorJohn">
+  <rdf:type rdf:resource="#Doctor"/>
+</owl:NamedIndividual>
+
+<!-- Medication: Amoxicillin -->
+<owl:NamedIndividual rdf:about="#Amoxicillin">
+  <rdf:type rdf:resource="#PrescriptionMedication"/>
+  <hasAdministrationMethod rdf:resource="#Oral"/>
+  <treatsCondition rdf:resource="#AcuteCondition"/>
+  <hasDosage rdf:resource="#AmoxicillinDosageAmount"/>
+  <hasDosage rdf:resource="#AmoxicillinDosageDuration"/>
+  <hasDosage rdf:resource="#AmoxicillinDosageFrequency"/>
+  <hasSideEffect rdf:resource="#CommonSideEffectRash"/>
+  <hasInstruction rdf:resource="#TakeWithWater"/>
+  <prescribedBy rdf:resource="#DoctorEmily"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#AmoxicillinDosageAmount">
+  <rdf:type rdf:resource="#DosageAmount"/>
+  <dosageAmountValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">250 mg</dosageAmountValue>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#AmoxicillinDosageDuration">
+  <rdf:type rdf:resource="#DosageDuration"/>
+  <dosageDurationValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10 days</dosageDurationValue>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#AmoxicillinDosageFrequency">
+  <rdf:type rdf:resource="#DosageFrequency"/>
+  <dosageFrequencyValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Every 8 hours</dosageFrequencyValue>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#CommonSideEffectRash">
+  <rdf:type rdf:resource="#CommonSideEffect"/>
+  <sideEffectDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Skin rash</sideEffectDescription>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#TakeWithWater">
+  <rdf:type rdf:resource="#FoodRequirement"/>
+  <instructionText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Take with a full glass of water</instructionText>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#DoctorEmily">
+  <rdf:type rdf:resource="#Doctor"/>
+</owl:NamedIndividual>
+
+<!-- Medication: Cetirizine -->
+<owl:NamedIndividual rdf:about="#Cetirizine">
+  <rdf:type rdf:resource="#OverTheCounterMedication"/>
+  <hasAdministrationMethod rdf:resource="#Oral"/>
+  <treatsCondition rdf:resource="#AllergicCondition"/>
+  <hasDosage rdf:resource="#CetirizineDosageAmount"/>
+  <hasDosage rdf:resource="#CetirizineDosageDuration"/>
+  <hasDosage rdf:resource="#CetirizineDosageFrequency"/>
+  <hasSideEffect rdf:resource="#CommonSideEffectDrowsiness"/>
+  <hasInstruction rdf:resource="#TakeAtNight"/>
+  <prescribedBy rdf:resource="#PharmacistMike"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#CetirizineDosageAmount">
+  <rdf:type rdf:resource="#DosageAmount"/>
+  <dosageAmountValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">10 mg</dosageAmountValue>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#CetirizineDosageDuration">
+  <rdf:type rdf:resource="#DosageDuration"/>
+  <dosageDurationValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">As needed</dosageDurationValue>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#CetirizineDosageFrequency">
+  <rdf:type rdf:resource="#AsNeededFrequency"/>
+  <dosageFrequencyValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Once daily</dosageFrequencyValue>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#CommonSideEffectDrowsiness">
+  <rdf:type rdf:resource="#CommonSideEffect"/>
+  <sideEffectDescription rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Drowsiness</sideEffectDescription>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#TakeAtNight">
+  <rdf:type rdf:resource="#TimeOfDay"/>
+  <instructionText rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Take at night</instructionText>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#PharmacistMike">
+  <rdf:type rdf:resource="#Pharmacist"/>
+</owl:NamedIndividual>
+
+<!-- Patients -->
+<owl:NamedIndividual rdf:about="#Bob">
+  <rdf:type rdf:resource="#AdultPatient"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#Clara">
+  <rdf:type rdf:resource="#ChildPatient"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ElderlyMary">
+  <rdf:type rdf:resource="#ElderlyPatient"/>
+</owl:NamedIndividual>
+
+<!-- Healthcare Provider -->
+<owl:NamedIndividual rdf:about="#NurseAnna">
+  <rdf:type rdf:resource="#Nurse"/>
+</owl:NamedIndividual>
+
+
+<!-- New Object Properties for Rules -->
+<owl:ObjectProperty rdf:about="#recommendDosageReduction">
+  <rdfs:domain rdf:resource="#Dosage"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  <rdfs:label>recommend dosage reduction</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasPotentialInteraction">
+  <rdfs:domain rdf:resource="#Patient"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  <rdfs:label>has potential interaction</rdfs:label>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="#hasInteractionWarning">
+  <rdfs:domain rdf:resource="#Medication"/>
+  <rdfs:range rdf:resource="#InteractionWarning"/>
+  <rdfs:label>has interaction warning</rdfs:label>
+</owl:ObjectProperty>
+
+
+<swrl:Imp rdf:about="#ElderlyDosageRule">
+  <swrl:head>
+    <swrl:AtomList>
+      <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:propertyPredicate rdf:resource="#recommendDosageReduction"/>
+          <swrl:argument1 rdf:resource="#d"/>
+          <swrl:argument2>
+            <swrl:Variable rdf:about="#reductionText"/>
+          </swrl:argument2>
+        </swrl:IndividualPropertyAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </swrl:AtomList>
+  </swrl:head>
+  <swrl:body>
+    <swrl:AtomList>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#Medication"/>
+          <swrl:argument1 rdf:resource="#m"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <!-- Remaining rule atoms would go here -->
+      </rdf:rest>
+    </swrl:AtomList>
+  </swrl:body>
+</swrl:Imp>
+
+<swrl:Imp rdf:about="#InteractionWarningRule">
+  <swrl:head>
+    <swrl:AtomList>
+      <rdf:first>
+        <swrl:IndividualPropertyAtom>
+          <swrl:propertyPredicate rdf:resource="#hasPotentialInteraction"/>
+          <swrl:argument1 rdf:resource="#pt"/>
+          <swrl:argument2>
+            <swrl:Variable rdf:about="#warningText"/>
+          </swrl:argument2>
+        </swrl:IndividualPropertyAtom>
+      </rdf:first>
+      <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    </swrl:AtomList>
+  </swrl:head>
+  <swrl:body>
+    <swrl:AtomList>
+      <rdf:first>
+        <swrl:ClassAtom>
+          <swrl:classPredicate rdf:resource="#Medication"/>
+          <swrl:argument1 rdf:resource="#m1"/>
+        </swrl:ClassAtom>
+      </rdf:first>
+      <rdf:rest>
+        <!-- Remaining rule atoms would go here -->
+      </rdf:rest>
+    </swrl:AtomList>
+  </swrl:body>
+</swrl:Imp>
+
+
+</rdf:RDF>
